@@ -1,19 +1,20 @@
 from .plugins import discover
 import argparse
 
+
 def _construct_parser():
     """
         Construct the fully populated argument parser.
     """
     # Parser
     parser = argparse.ArgumentParser()
-    parser.add_argument("-v","--version",action="store_true",help="Show version")
+    parser.add_argument(
+        "-v", "--version", action="store_true", help="Show version",
+    )
     parser.set_defaults(handler=base_command)
     # Subparsers
     subparsers = parser.add_subparsers(
-        title="Actions",
-        description="All available actions to perform.",
-        dest="action",
+        title="Actions", description="All available actions to perform.", dest="action",
     )
     # Collect the `action` plugins, they need to return an object that implements the
     # paperpy.interfaces.Action interface.
@@ -32,10 +33,12 @@ def _construct_parser():
 
     return parser
 
+
 # A list of tuples of args & kwargs to be given to the `parser.add_argument` function.
 _global_arguments = [
     # ([], {})
 ]
+
 
 def _apply_global_arguments(parser):
     """
@@ -43,6 +46,7 @@ def _apply_global_arguments(parser):
     """
     for arg in _global_arguments:
         parser.add_argument(*arg[0], **arg[1])
+
 
 def handle_command():
     """
@@ -58,10 +62,12 @@ def handle_command():
     # isn't reached.
     args.handler(args)
 
+
 def base_command(args):
     """
         The handler for the ``paperpy`` command withot any specified action.
     """
     if args.version:
         from .. import __version__
+
         print(__version__)

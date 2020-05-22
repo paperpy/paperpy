@@ -4,6 +4,7 @@
 
 import abc
 
+
 class Action(abc.ABC):
     """
         An action registers a subcommand in the paperpy command.
