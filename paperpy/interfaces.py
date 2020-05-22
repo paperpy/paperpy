@@ -21,8 +21,9 @@ class Action(abc.ABC):
         If ``module.my_action`` is a class that implements this interface then you'll
         register you can register a parser for the ``paperpy my_subcommand`` CLI command.
     """
+
     @abc.abstractmethod
-    def get_parser_args():
+    def get_parser_args(self):
         """
             This method should a dictionary of keyword arguments that are sent to the
             :class:`argparse.ArgumentParser` constructor.
@@ -30,7 +31,7 @@ class Action(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def fill_parser(parser):
+    def fill_parser(self, parser):
         """
             This method receives an argparse subparser for your command. Here you can add
             all your arguments and so on.
@@ -38,7 +39,7 @@ class Action(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def command_handler(args):
+    def handle_command(self, args):
         """
             This method receives the parsed arguments and should execute the command.
         """
