@@ -19,8 +19,8 @@ class Action(abc.ABC):
                 }
             )
 
-        If ``module.my_action`` is a class that implements this interface then you'll
-        register you can register a parser for the ``paperpy my_subcommand`` CLI command.
+        If ``module.my_action`` is a class that implements the Action interface then a
+        parser for the ``paperpy my_subcommand`` CLI command is registered.
     """
 
     @abc.abstractmethod
