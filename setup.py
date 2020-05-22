@@ -29,7 +29,6 @@ setuptools.setup(
     package_data={"paperpy": ["data/**/*"]},
     entry_points={
         "console_scripts": ["paperpy = paperpy.cli:handle_command"],
-        "paperpy.action": ["test = paperpy.test:eyo"]
     },
     classifiers=[
         'Intended Audience :: Science/Research',
