@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(__file__, "..", "..")))
 project = "PaperPY"
 copyright = "2020, Philipp Wabnitz, Robin De Schepper"
 author = "Philipp Wabnitz, Robin De Schepper"
+master_doc = "index"
 
 
 # -- General configuration ---------------------------------------------------
