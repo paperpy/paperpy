@@ -1,6 +1,7 @@
 import pkg_resources
 from ..exceptions import *
 
+
 def discover(category, *args, **kwargs):
     plugins = []
     for plugin in pkg_resources.iter_entry_points("paperpy." + category):

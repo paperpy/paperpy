@@ -10,9 +10,10 @@ Better description will follow :P
 """
 
 import sys
-import pypandoc    # <- Needs pandoc installed
+import pypandoc
 from textblob import TextBlob
 from tabulate import tabulate
+
 
 def main(argv):
     """
@@ -24,29 +25,29 @@ def main(argv):
         filepath = str(argv[1:])
     else:
         # Input via console
-        if sys.version_info[0] < 3:    # <- python 2
+        if sys.version_info[0] < 3:  # <- python 2
             filepath = str(raw_input("Filepath: "))
         else:
             filepath = str(input("Filepath: "))
 
     # Settings
-    language = 'de'
+    language = "de"
 
     # Data paths
-    attentionfile = 'data/' + language + '/attentionwords.txt'
-    ngramfile = 'data/' + language + '/ngramlist.txt'
+    attentionfile = "data/" + language + "/attentionwords.txt"
+    ngramfile = "data/" + language + "/ngramlist.txt"
 
     # Test path
     # filepath = '../tests/test.docx'
 
     # Load textfile and convert to plain text
-    text = pypandoc.convert_file(filepath, 'plain')
+    text = pypandoc.convert_file(filepath, "plain")
 
     # Load attentionwords as list
-    attentionwords = open(attentionfile, encoding='utf-8').read().splitlines()
+    attentionwords = open(attentionfile, encoding="utf-8").read().splitlines()
 
     # Load ngramlist as list
-    ngramlist = open(ngramfile, encoding='utf-8').read().splitlines()
+    ngramlist = open(ngramfile, encoding="utf-8").read().splitlines()
 
     # Create a textblob to work with
     blob = TextBlob(text)
@@ -64,16 +65,18 @@ def main(argv):
     ngrams = blob.ngrams(n=2)
 
     ## Print all the sentences
-    #for sentence in sentences:
+    # for sentence in sentences:
     #   print(sentence)
 
     # create wordtable
     wordtable = []
     for word in wordset:
-        wordtable.append([word, str(wordlist.count(word)), str(blob.find(word))])
+        wordtable.append(
+            [word, str(wordlist.count(word)), str(blob.find(word)),]
+        )
 
     # sort by amount
-    wordtable = sorted(wordtable, key=lambda word: int(word[1]), reverse=True)
+    wordtable = sorted(wordtable, key=lambda word: int(word[1]), reverse=True,)
 
     # print amount table
     print(tabulate(wordtable))
@@ -86,7 +89,7 @@ def main(argv):
         attentiontable.append([word, str(blob.find(word))])
 
     # sort by position
-    attentiontable = sorted(attentiontable, key=lambda word: int(word[1]))
+    attentiontable = sorted(attentiontable, key=lambda word: int(word[1]),)
 
     # print amount table
     print(tabulate(attentiontable))
@@ -97,7 +100,7 @@ def main(argv):
     phrasetable = []
     for ngram in ngrams:
         if (ngram[0].lower() == ngram[1].lower()) | (ngram[0].lower() in ngramlist):
-            phrase = ' '.join(str(word) for word in ngram)
+            phrase = " ".join(str(word) for word in ngram)
             phrasetable.append([phrase, str(blob.find(phrase))])
 
     # sort by position
@@ -107,6 +110,7 @@ def main(argv):
     print(tabulate(phrasetable))
 
     print("\n")
+
 
 # Execute only if run as a script
 if __name__ == "__main__":
