@@ -29,6 +29,7 @@ setuptools.setup(
     package_data={"paperpy": ["data/**/*"]},
     entry_points={
         "console_scripts": ["paperpy = paperpy.cli:handle_command"],
+        "paperpy.action": ["test = paperpy.test:eyo"]
     },
     classifiers=[
         'Intended Audience :: Science/Research',
@@ -36,4 +37,13 @@ setuptools.setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
     ],
+    install_requires=[
+        "setuptools",
+        "pypandoc",
+        "tabulate",
+        "textblob"
+    ],
+    extras_require={
+        "dev": ["sphinx", "sphinx_rtd_theme>=0.4.3", "pre-commit", "black"],
+    }
 )
