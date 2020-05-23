@@ -39,11 +39,11 @@ class GlobalArgument:
 
         For example using a global argument '-x'::
 
-        paperpy -x test
+          paperpy -x test
 
         Is equivalent to::
 
-        paperpy test -x
+          paperpy test -x
     """
 
     def __init__(self, *args, **kwargs):
