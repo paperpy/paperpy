@@ -8,6 +8,8 @@ def _construct_parser():
     """
     # Parser
     parser = argparse.ArgumentParser()
+    # Set all global arguments on the root parser
+    _apply_global_arguments(parser)
     parser.add_argument(
         "-v", "--version", action="store_true", help="Show version",
     )
@@ -23,10 +25,7 @@ def _construct_parser():
         plugin_parser = subparsers.add_parser(plugin.__name__, **plugin.get_parser_args())
         # Fill the parser object with its arguments etc.
         plugin.fill_parser(plugin_parser)
-        # Set all arguments that are 'global' => They should work in any position in the
-        # command. Eg the following 2 commands should be equivalent:
-        # paperpy --config=A lint
-        # paperpy lint --config=A
+        # Set all global arguments on the plugin parser.
         _apply_global_arguments(plugin_parser)
         # Set the `handler` argument to the command handler
         plugin_parser.set_defaults(handler=plugin.handle_command)
@@ -34,9 +33,34 @@ def _construct_parser():
     return parser
 
 
-# A list of tuples of args & kwargs to be given to the `parser.add_argument` function.
+class GlobalArgument:
+    """
+        A global argument can be given at any position in the CLI command.
+
+        For example using a global argument '-x'::
+
+        paperpy -x test
+
+        Is equivalent to::
+
+        paperpy test -x
+    """
+
+    def __init__(self, *args, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
+
+    def add_to(self, parser):
+        """
+            Add the global argument to a parser. A global argument should be added to
+            each parser in order to function in each position.
+        """
+        parser.add_argument(*self.args, **self.kwargs)
+
+
+# A list of global arguments
 _global_arguments = [
-    # ([], {})
+    # GlobalArgument('-t','--test',help="Test arg")
 ]
 
 
@@ -45,7 +69,7 @@ def _apply_global_arguments(parser):
         Apply the global arguments to a parser.
     """
     for arg in _global_arguments:
-        parser.add_argument(*arg[0], **arg[1])
+        arg.add_to(parser)
 
 
 def handle_command():
