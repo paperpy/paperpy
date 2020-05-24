@@ -27,7 +27,10 @@ setuptools.setup(
     packages=["paperpy"],
     include_package_data=True,
     package_data={"paperpy": ["data/**/*"]},
-    entry_points={"console_scripts": ["paperpy = paperpy.cli:handle_command"],},
+    entry_points={
+        "console_scripts": ["paperpy = paperpy.cli:handle_command"],
+        "paperpy.actions": ["new = paperpy.cli.actions.new:New"],
+    },
     classifiers=[
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: MIT License",

@@ -18,9 +18,9 @@ def _construct_parser():
     subparsers = parser.add_subparsers(
         title="Actions", description="All available actions to perform.", dest="action",
     )
-    # Collect the `action` plugins, they need to return an object that implements the
+    # Collect the `actions` plugins, they need to return an object that implements the
     # paperpy.interfaces.Action interface.
-    for plugin in discover("action"):
+    for plugin in discover("actions"):
         # Create the subparser with the plugin defined arguments and name.
         plugin_parser = subparsers.add_parser(plugin.__name__, **plugin.get_parser_args())
         # Fill the parser object with its arguments etc.
