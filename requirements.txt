@@ -6,7 +6,7 @@ pypandoc == 1.5
 
 # paperpy/paperpy/cli/plugins.py: 1
 # paperpy/setup.py: 3
-setuptools == 40.6.2
+setuptools == 65.5.1
 
 # paperpy/build/lib/paperpy/paperpy.py: 15
 # paperpy/paperpy/paperpy.py: 15
